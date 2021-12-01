@@ -8,9 +8,7 @@ import pickle
 import keyboard
 
 
-
-
-env.reset()
+#
 
 env = retro.make('SonicTheHedgehog-Genesis', 'GreenHillZone.Act1')
 
