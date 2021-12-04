@@ -98,8 +98,7 @@ class Interactive(abc.ABC):
         #discomment the following for write into csv
         #with open('img', 'a') as f:
             # using csv.writer method from CSV package
-        #    write = csv.writer(f)
-
+        #   write = csv.writer(f)
         #   write.writerow(imgarray1)
 
     def _update(self, dt):
@@ -138,6 +137,11 @@ class Interactive(abc.ABC):
                     if getattr(keycodes, name) == keycode:
                         keys.append(name)
                         print(keys)
+                        # discomment the following for write into csv
+                        # with open('keys', 'a') as f:
+                        # using csv.writer method from CSV package
+                        #   write = csv.writer(f)
+                        #   write.writerow(imgarray1)
 
             act = self.keys_to_act(keys)
 
