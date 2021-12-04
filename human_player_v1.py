@@ -11,7 +11,7 @@ import ctypes
 import argparse
 import abc
 import time
-
+import keyboard
 import numpy as np
 import retro
 import pyglet
@@ -19,8 +19,6 @@ from pyglet import gl
 from pyglet.window import key as keycodes
 import cv2
 
-
-#ciaoooooooo
 
 class Interactive(abc.ABC):
     """
@@ -82,6 +80,44 @@ class Interactive(abc.ABC):
         self._current_time = 0
         self._sim_time = 0
         self._max_sim_frames_per_update = 4
+
+        inx, iny, inc = env.observation_space.shape
+
+        inx = int(inx / 8)
+        iny = int(iny / 8)
+
+        ob1 = cv2.resize(obs, (inx, iny))
+        #ob1 = np.reshape(ob1, (inx, iny))
+        cv2.imshow("cosa vede", ob1)
+
+        imgarray1 = np.ndarray.flatten(ob1)
+
+        if keyboard.is_pressed('up'):  # if key 'up' is pressed
+            up = 1
+            print("up=")
+            print(up)
+        else:
+            up = 0
+        if keyboard.is_pressed('down'):  # if key 'down' is pressed
+            down = 1
+        else:
+            down = 0
+        if keyboard.is_pressed('left'):  # if key 'left' is pressed
+            left = 1
+        else:
+            left = 0
+        if keyboard.is_pressed('right'):  # if key 'right' is pressed
+            right = 1
+        else:
+            right = 0
+        if keyboard.is_pressed('x'):  # if key 'x' is pressed
+            x = 1
+        else:
+            x = 0
+
+        # keydata è il vettore dei tasti premuti, che viene accodato al vettore imgarray che è il gioco, scalato
+        key_data = [up, down, left, right, x]
+        imgarray1 = np.append(imgarray1, key_data)
 
     def _update(self, dt):
         # cap the number of frames rendered so we don't just spend forever trying to catch up on frames
@@ -204,13 +240,6 @@ class Interactive(abc.ABC):
             prev_frame_time = now
             self._draw()
             self._win.flip()
-
-            #ob = cv2.resize(ob, (inx, iny))
-            #ob = cv2.cvtColor(ob, cv2.COLOR_BGR2GRAY)
-            #ob = np.reshape(ob, (inx, iny))
-
-
-            #imgarray = np.ndarray.flatten(ob)
 
 
         return
