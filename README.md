@@ -8,3 +8,8 @@ py -3.7 -m pip install gym-retro
 To import a rom:
 py -3.7 -m retro.import 'C:\Users\dew54\OneDrive\Documenti\UniTs\RL\reinforcement-project\rom'
 
+TODO
+1) write pressed keys in csv
+2) train NN with that csv
+3) import NN structure and weights to feed NEAT
+
