@@ -118,6 +118,11 @@ class Interactive(abc.ABC):
         # keydata è il vettore dei tasti premuti, che viene accodato al vettore imgarray che è il gioco, scalato
         key_data = [up, down, left, right, x]
         imgarray1 = np.append(imgarray1, key_data)
+        with open('img', 'a') as f:
+            # using csv.writer method from CSV package
+            write = csv.writer(f)
+
+            write.writerow(imgarray1)
 
     def _update(self, dt):
         # cap the number of frames rendered so we don't just spend forever trying to catch up on frames
