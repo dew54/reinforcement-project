@@ -12,4 +12,6 @@ TODO
 1) write pressed keys in csv
 2) train NN with that csv
 3) import NN structure and weights to feed NEAT
+4) transfer learning on new levels
+5) explain maths
 
