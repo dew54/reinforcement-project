@@ -20,6 +20,8 @@ from pyglet.window import key as keycodes
 import cv2
 
 
+#ciaoooooooo
+
 class Interactive(abc.ABC):
     """
     Base class for making gym environments interactive for human use
