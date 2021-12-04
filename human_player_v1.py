@@ -92,32 +92,9 @@ class Interactive(abc.ABC):
 
         imgarray1 = np.ndarray.flatten(ob1)
 
-        if keyboard.is_pressed('up'):  # if key 'up' is pressed
-            up = 1
-            print("up=")
-            print(up)
-        else:
-            up = 0
-        if keyboard.is_pressed('down'):  # if key 'down' is pressed
-            down = 1
-        else:
-            down = 0
-        if keyboard.is_pressed('left'):  # if key 'left' is pressed
-            left = 1
-        else:
-            left = 0
-        if keyboard.is_pressed('right'):  # if key 'right' is pressed
-            right = 1
-        else:
-            right = 0
-        if keyboard.is_pressed('x'):  # if key 'x' is pressed
-            x = 1
-        else:
-            x = 0
-
         # keydata è il vettore dei tasti premuti, che viene accodato al vettore imgarray che è il gioco, scalato
-        key_data = [up, down, left, right, x]
-        imgarray1 = np.append(imgarray1, key_data)
+        #key_data = [up, down, left, right, x]
+        #imgarray1 = np.append(imgarray1, key_data)
 
         #discomment the following for write into csv
         #with open('img', 'a') as f:
@@ -161,6 +138,7 @@ class Interactive(abc.ABC):
                 for name in dir(keycodes):
                     if getattr(keycodes, name) == keycode:
                         keys.append(name)
+                        print(keys)
 
             act = self.keys_to_act(keys)
 
