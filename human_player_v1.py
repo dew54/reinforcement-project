@@ -92,9 +92,8 @@ class Interactive(abc.ABC):
 
         imgarray1 = np.ndarray.flatten(ob1)
 
-        # keydata è il vettore dei tasti premuti, che viene accodato al vettore imgarray che è il gioco, scalato
-        #key_data = [up, down, left, right, x]
-        #imgarray1 = np.append(imgarray1, key_data)
+        #vettore imgarray che è il gioco, scalato
+        #imgarray1 = np.append(imgarray1)
 
         #discomment the following for write into csv
         #with open('img', 'a') as f:
