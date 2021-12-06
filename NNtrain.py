@@ -13,15 +13,16 @@ import os
 
 
 
-y_commands = pd.read_csv('commands.csv')
+#y_commands = pd.read_csv('commands.csv')
+key_vector = pd.read_csv('key_vector.csv')
 x_img = pd.read_csv('img.csv')
-x_cardata= pd.read_csv('cardata.csv')
+#x_cardata= pd.read_csv('cardata.csv')
 print(x_img.shape)
-print(x_cardata.shape)
-print(y_commands.shape)
+#print(x_cardata.shape)
+#print(y_commands.shape)
 print(x_img.ndim)
 x_img=x_img.to_numpy()
-x_cardata=x_cardata.to_numpy()
+#x_cardata=x_cardata.to_numpy()
 
 x_img= np.reshape(x_img, (-1, 160, 90))
 #print(x_img.shape)
@@ -33,7 +34,7 @@ def listify(*args):
 #xx_train = listify(x_img, x_cardata)
 
 x_data = np.array([x_img])
-y_data = np.array([y_commands, y_commands])
+k_data = np.array([key_vector, key_vector])
 
 #print("xxtrainshape:", xx_train.__len__())
 
@@ -43,9 +44,9 @@ y_data = np.array([y_commands, y_commands])
 print(x_img.shape)
 
 x_val = x_data[-974:]
-y_val = y_data[-974:]
+y_val = k_data[-974:]
 x_train = x_data[:-3000]
-y_train = y_data[:-3000]
+y_train = k_data[:-3000]
 
 
 print('Data created successfully')
@@ -78,7 +79,7 @@ model.add(keras.layers.Dense(units = 64, activation = 'relu'))
 model.add(keras.layers.Dense(units = 5, activation = 'linear'))
 model.compile(loss='mse', optimizer="adam")
 
-# Display the model
+# Display the modelt
 model.summary()
 
 model.fit( x_train, y_train, epochs=500, verbose=1, batch_size=64, validation_data=(x_val, y_val),)
