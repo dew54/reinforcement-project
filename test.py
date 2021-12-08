@@ -7,7 +7,6 @@ from collections import deque
 import matplotlib.pyplot as plt
 from IPython.display import clear_output
 import math
-import algos
 
 
 #%matplotlib inline
@@ -160,7 +159,7 @@ def train(n_episodes=1000):
     
     return scores
 
-    scores = train(1000)
+scores = train(1000)
 
 
 env.viewer = None
@@ -175,4 +174,3 @@ for j in range(10000):
         env.reset()
         break 
 env.render(close=True)
-
