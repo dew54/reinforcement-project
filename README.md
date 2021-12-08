@@ -17,3 +17,9 @@ TODO
 4) transfer learning on new levels
 5) explain maths
 
+
+
+
+SONIC RL:
+https://github.com/deepanshut041/Reinforcement-Learning/blob/master/cgames/05_sonic/sonic_dqn.ipynb
+
