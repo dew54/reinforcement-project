@@ -20,6 +20,7 @@ from algos.preprocessing.stack_frame import preprocess_frame, stack_frame
 
 env = retro.make(game='SonicTheHedgehog-Genesis', state='GreenHillZone.Act1', scenario='contest')
 env.seed(0)
+torch.cuda.is_available()
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print("Device: ", device)
@@ -148,19 +149,25 @@ def train(n_episodes=1000):
         scores.append(score)              # save most recent score
         
         
-        clear_output(True)
-        fig = plt.figure()
-        ax = fig.add_subplot(111)
-        plt.plot(np.arange(len(scores)), scores)
-        plt.ylabel('Score')
-        plt.xlabel('Episode #')
-        plt.show()
+        
+       
         print('\rEpisode {}\tAverage Score: {:.2f}\tEpsilon: {:.2f}'.format(i_episode, np.mean(scores_window), eps), end="")
     
     return scores
 
-scores = train(1000)
 
+
+scores = train(10)
+
+clear_output(True)
+fig = plt.figure()
+ax = fig.add_subplot(111)
+plt.plot(np.arange(len(scores)), scores)
+plt.ylabel('Score')
+plt.xlabel('Episode #')
+plt.show()
+
+print("Trained!")
 
 env.viewer = None
 # watch an untrained agent
@@ -174,3 +181,4 @@ for j in range(10000):
         env.reset()
         break 
 env.render(close=True)
+
