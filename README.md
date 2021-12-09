@@ -1,6 +1,9 @@
 # reinforcement-project
 RL academic project
 
+Paper on:
+https://docs.google.com/document/d/1pDiRW2g1yKKiK6LilJiCd5ayzWb1l7AyQhKL6smqo44/edit?usp=sharing
+
 Note: 
 Retro-gym is not compatible with python 3.9 or higher. Install python 3.7, then for installing packages for a specific version of python:
 py -3.7 -m pip install gym-retro
