@@ -157,7 +157,7 @@ def train(n_episodes=1000):
 
 
 
-scores = train(10)
+scores = train(1)
 
 clear_output(True)
 fig = plt.figure()
@@ -168,6 +168,8 @@ plt.xlabel('Episode #')
 plt.show()
 
 print("Trained!")
+
+agent.saveNetwork()
 
 env.viewer = None
 # watch an untrained agent
