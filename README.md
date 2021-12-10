@@ -31,3 +31,11 @@ COLAB script: // Just copy paste and run:
 import retro
 !python -m retro.import 'reinforcement-project/rom'
 !python reinforcement-project/test.py --foo bar
+
+To keep colab running, paste in javascript console:
+
+function ClickConnect(){
+console.log("Working"); 
+document.querySelector("#top-toolbar > colab-connect-button").shadowRoot.querySelector("#connect").click();
+}
+var clicker = setInterval(ClickConnect,60000);
