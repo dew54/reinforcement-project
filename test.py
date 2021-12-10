@@ -139,4 +139,6 @@ scores = train(10000)
 
 print("Trained!")
 
+DQNAgent.saveNetwork()
+
 
