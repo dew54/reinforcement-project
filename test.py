@@ -135,7 +135,7 @@ def train(n_episodes=1000):
 
 
 
-scores = train(10000)
+scores = train(10)
 
 print("Trained!")
 
