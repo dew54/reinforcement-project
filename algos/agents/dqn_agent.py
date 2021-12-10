@@ -104,3 +104,6 @@ class DQNAgent():
     def soft_update(self, policy_model, target_model, tau):
         for target_param, policy_param in zip(target_model.parameters(), policy_model.parameters()):
             target_param.data.copy_(tau*policy_param.data + (1.0-tau)*target_param.data)
+
+    def getNetwork(self):
+        return self.target_net
