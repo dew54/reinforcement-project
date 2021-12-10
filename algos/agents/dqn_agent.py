@@ -105,5 +105,5 @@ class DQNAgent():
         for target_param, policy_param in zip(target_model.parameters(), policy_model.parameters()):
             target_param.data.copy_(tau*policy_param.data + (1.0-tau)*target_param.data)
 
-    def getNetwork(self):
-        return self.target_net
+    def saveNetwork(self):
+        torch.save(self.target_net, '.')
