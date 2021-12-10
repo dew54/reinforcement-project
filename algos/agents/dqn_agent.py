@@ -106,4 +106,6 @@ class DQNAgent():
             target_param.data.copy_(tau*policy_param.data + (1.0-tau)*target_param.data)
 
     def saveNetwork(self):
-        torch.save(self.target_net, 'trainedCNN.model')
+        torch.save(self.policy_net, 'trainedCNN.model')
+        torch.save(self.policy_net.state_dict(), 'trainedParameters.pt')
+
