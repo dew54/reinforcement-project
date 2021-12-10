@@ -28,11 +28,6 @@ print("Device: ", device)
 print("The size of frame is: ", env.observation_space.shape)
 print("No. of Actions: ", env.action_space.n)
 env.reset()
-plt.figure()
-plt.imshow(env.reset())
-plt.title('Original Frame')
-plt.show()
-
 
 possible_actions = {
             # No Operation
@@ -54,10 +49,6 @@ possible_actions = {
         }
 
 
-plt.figure()
-plt.imshow(preprocess_frame(env.reset(), (1, -1, -1, 1), 84), cmap="gray")
-plt.title('Pre Processed image')
-plt.show()
 
 def stack_frames(frames, state, is_new=False):
     frame = preprocess_frame(state, (1, -1, -1, 1), 84)
@@ -83,18 +74,6 @@ EPS_DECAY = 100         # Rate by which epsilon to be decayed
 agent = DQNAgent(INPUT_SHAPE, ACTION_SIZE, SEED, device, BUFFER_SIZE, BATCH_SIZE, GAMMA, LR, TAU, UPDATE_EVERY, UPDATE_TARGET, DQNCnn)
 
 
-env.viewer = None
-# watch an untrained agent
-state = stack_frames(None, env.reset(), True) 
-for j in range(200):
-    env.render(close=False)
-    action = agent.act(state, eps=0.01)
-    next_state, reward, done, _ = env.step(possible_actions[action])
-    state = stack_frames(state, next_state, False)
-    if done:
-        env.reset()
-        break 
-env.render(close=True)
 
 
 start_epoch = 0
@@ -104,7 +83,6 @@ scores_window = deque(maxlen=20)
 
 epsilon_by_epsiode = lambda frame_idx: EPS_END + (EPS_START - EPS_END) * math.exp(-1. * frame_idx /EPS_DECAY)
 
-plt.plot([epsilon_by_epsiode(i) for i in range(1000)])
 
 
 def train(n_episodes=1000):
@@ -157,28 +135,8 @@ def train(n_episodes=1000):
 
 
 
-scores = train(10)
-
-clear_output(True)
-fig = plt.figure()
-ax = fig.add_subplot(111)
-plt.plot(np.arange(len(scores)), scores)
-plt.ylabel('Score')
-plt.xlabel('Episode #')
-plt.show()
+scores = train(10000)
 
 print("Trained!")
 
-env.viewer = None
-# watch an untrained agent
-state = stack_frames(None, env.reset(), True) 
-for j in range(10000):
-    env.render(close=False)
-    action = agent.act(state, eps=0.91)
-    next_state, reward, done, _ = env.step(possible_actions[action])
-    state = stack_frames(state, next_state, False)
-    if done:
-        env.reset()
-        break 
-env.render(close=True)
 
