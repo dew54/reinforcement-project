@@ -19,6 +19,7 @@ from algos.agents.dqn_agent import DQNAgent
 from algos.models.dqn_cnn import DQNCnn
 from algos.preprocessing.stack_frame import preprocess_frame, stack_frame
 
+
 env = retro.make(game='SonicTheHedgehog-Genesis', state='GreenHillZone.Act1', scenario='contest')
 env.seed(0)
 
@@ -160,7 +161,7 @@ def train(n_episodes=1000):
     
     return scores
 
-    scores = train(1000)
+scores = train(1000)
 
 
 env.viewer = None

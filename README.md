@@ -17,7 +17,13 @@ TODO
 4) transfer learning on new levels
 5) explain maths
 
-
+We'll focus on training an agent to play an old style video game ('Sonic the hedgehog' by 'SEGA'), implementing a Deep-Q learning algorithm.
+We've found an open GitHub repository that implements a simple DQN; our idea is to start from that project and evaluate some improvements such as:
+Use NEAT for finding out the best topology for DQN
+Try to 'give an help' to the agent putting into his replay experience some data derived from recordered plays made by humans (ourself)
+Verify that performances can be improved by using Double Deep-Q learning
+Assess the ability of the agent to play other levels of the same game
+We've just beginned our work, let us know if our proposal is acceptable,
 
 
 SONIC RL:
