@@ -75,14 +75,18 @@ EPS_DECAY = 100         # Rate by which epsilon to be decayed
 
 
 
-agent = DQNAgent(INPUT_SHAPE, ACTION_SIZE, SEED, device, BUFFER_SIZE, BATCH_SIZE, GAMMA, LR, TAU, UPDATE_EVERY, UPDATE_TARGET, DQNCnn)
-agent.DQN = torch.load('trainedCNN.model', map_location=torch.device('cpu'))
-agent.DQN.eval()
 
+
+agent = DQNAgent(INPUT_SHAPE, ACTION_SIZE, SEED, device, BUFFER_SIZE, BATCH_SIZE, GAMMA, LR, TAU, UPDATE_EVERY, UPDATE_TARGET, DQNCnn, 'load_pt')
+#agent.DQN = torch.load('trainedCNN.model', map_location=torch.device('cpu'))
+#agent.DQN.eval()
+
+
+
+
+#agent.DQN.eval()
 env.viewer = None
 # watch an untrained agent
-
-
 
 start_epoch = 0
 scores = []
@@ -99,6 +103,7 @@ for j in range(10000):
     action = agent.act(state, eps=0.91)
     next_state, reward, done, _ = env.step(possible_actions[action])
     state = stack_frames(state, next_state, False)
+    print(reward)
     if done:
         env.reset()
         break 
