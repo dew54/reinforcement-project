@@ -26,3 +26,8 @@ TODO
 SONIC RL:
 https://github.com/deepanshut041/Reinforcement-Learning/blob/master/cgames/05_sonic/sonic_dqn.ipynb
 
+
+
+!git clone --branch colab https://github.com/dew54/reinforcement-project.git
+!pip install gym-retro
+!python reinforcement-project/Sonic_run.py --foo bar
