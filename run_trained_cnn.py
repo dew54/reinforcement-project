@@ -18,7 +18,7 @@ from algos.agents.dqn_agent import DQNAgent
 from algos.models.dqn_cnn import DQNCnn
 from algos.preprocessing.stack_frame import preprocess_frame, stack_frame
 
-env = retro.make(game='SonicTheHedgehog-Genesis', state='GreenHillZone.Act1')
+env = retro.make(game='SonicTheHedgehog-Genesis', state='GreenHillZone.Act1', scenario='contest')
 env.seed(0)
 torch.cuda.is_available()
 
@@ -98,15 +98,14 @@ epsilon_by_epsiode = lambda frame_idx: EPS_END + (EPS_START - EPS_END) * math.ex
 env.viewer = None
 # watch an untrained agent
 state = stack_frames(None, env.reset(), True) 
-done = False
-while (True):
+for j in range(10000):
     env.render(close=False)
-    action = agent.act(state, eps=0.97)
+    action = agent.act(state, eps=0.91)
     next_state, reward, done, _ = env.step(possible_actions[action])
     state = stack_frames(state, next_state, False)
     print(reward)
-    #if done:
-     #   env.reset()
-     #   break 
+    if done:
+        env.reset()
+        break 
 env.render(close=True)
 
