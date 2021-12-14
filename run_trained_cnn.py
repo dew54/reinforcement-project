@@ -99,7 +99,7 @@ env.viewer = None
 # watch an untrained agent
 state = stack_frames(None, env.reset(), True) 
 done = False
-while (not done):
+for i in range(15000):
     env.render(close=False)
     action = agent.act(state, eps=0.6)
     next_state, reward, done, _ = env.step(possible_actions[action])
