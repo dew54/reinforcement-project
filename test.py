@@ -18,7 +18,7 @@ from algos.agents.dqn_agent import DQNAgent
 from algos.models.dqn_cnn import DQNCnn
 from algos.preprocessing.stack_frame import preprocess_frame, stack_frame
 
-env = retro.make(game='SonicTheHedgehog-Genesis', state='GreenHillZone.Act1', scenario='contest')
+env = retro.make(game='SonicTheHedgehog-Genesis', state='GreenHillZone.Act1')
 env.seed(0)
 torch.cuda.is_available()
 
@@ -101,7 +101,7 @@ def train(n_episodes=1000):
         steps_stuck = 0
         timestamp = 0
 
-        while timestamp < n_episodes:
+        while timestamp < 1000:
             action = agent.act(state, eps)
             next_state, reward, done, info = env.step(possible_actions[action])
             score += reward
