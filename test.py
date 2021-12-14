@@ -84,8 +84,7 @@ scores_window = deque(maxlen=20)
 epsilon_by_epsiode = lambda frame_idx: EPS_END + (EPS_START - EPS_END) * math.exp(-1. * frame_idx /EPS_DECAY)
 
 
-
-def train(n_episodes=1000):
+def train(n_episodes=500):
     """
     Params
     ======
@@ -101,7 +100,7 @@ def train(n_episodes=1000):
         steps_stuck = 0
         timestamp = 0
 
-        while timestamp < 1000:
+        while timestamp < 10000:
             action = agent.act(state, eps)
             next_state, reward, done, info = env.step(possible_actions[action])
             score += reward
