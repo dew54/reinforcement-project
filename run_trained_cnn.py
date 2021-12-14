@@ -98,9 +98,10 @@ epsilon_by_epsiode = lambda frame_idx: EPS_END + (EPS_START - EPS_END) * math.ex
 env.viewer = None
 # watch an untrained agent
 state = stack_frames(None, env.reset(), True) 
-for j in range(10000):
+done = False
+while (not done):
     env.render(close=False)
-    action = agent.act(state, eps=0.91)
+    action = agent.act(state, eps=0.6)
     next_state, reward, done, _ = env.step(possible_actions[action])
     state = stack_frames(state, next_state, False)
     print(reward)
