@@ -101,7 +101,7 @@ def train(n_episodes=1000):
         steps_stuck = 0
         timestamp = 0
 
-        while timestamp < 10000:
+        while timestamp < n_episodes:
             action = agent.act(state, eps)
             next_state, reward, done, info = env.step(possible_actions[action])
             score += reward
@@ -135,7 +135,7 @@ def train(n_episodes=1000):
 
 
 
-scores = train(500)
+scores = train(1000)
 
 print("Trained!")
 
