@@ -138,7 +138,7 @@ class Interactive(abc.ABC):
                         keys.append(name)
                         print(keys)
                         # discomment the following for write into csv
-                        # with open('keys', 'a') as f:
+                        #with open('keys', 'a') as f:
                         # using csv.writer method from CSV package
                         #   write = csv.writer(f)
                         #   write.writerow(imgarray1)
@@ -238,7 +238,7 @@ class RetroInteractive(Interactive):
     Interactive setup for retro games
     """
     def __init__(self, game, state, scenario):
-        env = retro.make(game=game, state=state, scenario=scenario)
+        env = retro.make(game=game, state=state, scenario=scenario , record = '.')
         self._buttons = env.buttons
         super().__init__(env=env, sync=False, tps=60, aspect_ratio=4/3)
 

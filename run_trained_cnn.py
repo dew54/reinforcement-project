@@ -73,11 +73,25 @@ EPS_START = 0.99       # starting value of epsilon
 EPS_END = 0.01         # Ending value of epsilon
 EPS_DECAY = 100         # Rate by which epsilon to be decayed
 
+useNEAT = False
+useDDQN = False
+useHumanExperience = False
+level = 'SonicTheHedgehog-Genesis'
+number_of_episodes = 300
+
+
+args = {
+    "useNEAT": useNEAT,
+    "useDDQN": useDDQN,
+    "useHumanExperience": useHumanExperience,
+    "level": level,
+    "#episodes" : number_of_episodes
+}
 
 
 
 
-agent = DQNAgent(INPUT_SHAPE, ACTION_SIZE, SEED, device, BUFFER_SIZE, BATCH_SIZE, GAMMA, LR, TAU, UPDATE_EVERY, UPDATE_TARGET, DQNCnn, 'load_pt')
+agent = DQNAgent(INPUT_SHAPE, ACTION_SIZE, SEED, device, BUFFER_SIZE, BATCH_SIZE, GAMMA, LR, TAU, UPDATE_EVERY, UPDATE_TARGET, DQNCnn, 'load_pt', args)
 #agent.DQN = torch.load('trainedCNN.model', map_location=torch.device('cpu'))
 #agent.DQN.eval()
 
@@ -92,18 +106,16 @@ start_epoch = 0
 scores = []
 scores_window = deque(maxlen=20)
 
-
-
 env.viewer = None
-# watch an untrained agent
+# watch a trained agent
 state = stack_frames(None, env.reset(), True) 
 done = False
-for i in range(15000):
+for i in range(50):
     env.render(close=False)
-    action = agent.act(state, eps=0.1)
+    action = agent.act(state, eps=0.3)
     next_state, reward, done, _ = env.step(possible_actions[action])
     state = stack_frames(state, next_state, False)
-    print(reward)
+    print(action)
     if done:
         env.reset()
         break 
