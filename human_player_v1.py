@@ -11,7 +11,7 @@ import ctypes
 import argparse
 import abc
 import time
-
+import keyboard
 import numpy as np
 import retro
 import pyglet
@@ -81,6 +81,26 @@ class Interactive(abc.ABC):
         self._sim_time = 0
         self._max_sim_frames_per_update = 4
 
+        inx, iny, inc = env.observation_space.shape
+
+        inx = int(inx / 8)
+        iny = int(iny / 8)
+
+        ob1 = cv2.resize(obs, (inx, iny))
+        #ob1 = np.reshape(ob1, (inx, iny))
+        cv2.imshow("cosa vede", ob1)
+
+        imgarray1 = np.ndarray.flatten(ob1)
+
+        #vettore imgarray che è il gioco, scalato
+        #imgarray1 = np.append(imgarray1)
+
+        #discomment the following for write into csv
+        #with open('img', 'a') as f:
+            # using csv.writer method from CSV package
+        #   write = csv.writer(f)
+        #   write.writerow(imgarray1)
+
     def _update(self, dt):
         # cap the number of frames rendered so we don't just spend forever trying to catch up on frames
         # if rendering is slow
@@ -116,6 +136,12 @@ class Interactive(abc.ABC):
                 for name in dir(keycodes):
                     if getattr(keycodes, name) == keycode:
                         keys.append(name)
+                        print(keys)
+                        # discomment the following for write into csv
+                        # with open('keys', 'a') as f:
+                        # using csv.writer method from CSV package
+                        #   write = csv.writer(f)
+                        #   write.writerow(imgarray1)
 
             act = self.keys_to_act(keys)
 
@@ -202,13 +228,6 @@ class Interactive(abc.ABC):
             prev_frame_time = now
             self._draw()
             self._win.flip()
-
-            #ob = cv2.resize(ob, (inx, iny))
-            #ob = cv2.cvtColor(ob, cv2.COLOR_BGR2GRAY)
-            #ob = np.reshape(ob, (inx, iny))
-
-
-            #imgarray = np.ndarray.flatten(ob)
 
 
         return
