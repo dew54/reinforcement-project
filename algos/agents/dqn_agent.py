@@ -39,7 +39,8 @@ class DQNAgent():
         
         # Q-Network
         self.policy_net = self.DQN(input_shape, action_size).to(self.device)
-       # self.target_net = self.DQN(input_shape, action_size).to(self.device)
+        if self.args["useDDQN"]:
+            self.target_net = self.DQN(input_shape, action_size).to(self.device)
         self.optimizer = optim.Adam(self.policy_net.parameters(), lr=self.lr)
         
         # Replay memory
