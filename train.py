@@ -72,7 +72,7 @@ class Train:
             pass
 
         self.agent = None
-        self.agent = DQNAgent(INPUT_SHAPE, ACTION_SIZE, SEED, device, BUFFER_SIZE, BATCH_SIZE, GAMMA, LR, TAU, UPDATE_EVERY, UPDATE_TARGET, DQNCnn, 'load_pt', args)
+        self.agent = DQNAgent(INPUT_SHAPE, ACTION_SIZE, SEED, device, BUFFER_SIZE, BATCH_SIZE, GAMMA, LR, TAU, UPDATE_EVERY, UPDATE_TARGET, DQNCnn, '', args)
 
         
         self.start_epoch = 0
@@ -156,5 +156,4 @@ class Train:
         print("Trained!")   
 
         return self.scores
-        
         

@@ -6,7 +6,7 @@ def main():
     useDDQN = False
     useHumanExperience = False
     level = 'SonicTheHedgehog-Genesis'
-    number_of_episodes = 3
+    number_of_episodes = 300
 
 
     args = {
