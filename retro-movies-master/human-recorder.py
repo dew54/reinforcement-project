@@ -69,9 +69,9 @@ def main():
     win_height = win_width * screen_height // screen_width
     win = pyglet.window.Window(width=win_width, height=win_height, vsync=False)
 
-    if hasattr(win.context, '_nscontext'):
-        pixel_scale = win.context._nscontext.view().backingScaleFactor()
-    #pixel_scale
+    #if hasattr(win.context, '_nscontext'):
+    #    pixel_scale = win.context._nscontext.view().backingScaleFactor()
+    pixel_scale = 10
     win.width = win.width // pixel_scale
     win.height = win.height // pixel_scale
 
@@ -93,8 +93,8 @@ def main():
 
     pyglet.app.platform_event_loop.start()
 
-    fps_display = pyglet.clock.ClockDisplay()
-    clock.set_fps_limit(60)
+    #fps_display = pyglet.clock.ClockDisplay()
+    #clock.set_fps_limit(60)
 
     glEnable(GL_TEXTURE_2D)
     texture_id = GLuint(0)

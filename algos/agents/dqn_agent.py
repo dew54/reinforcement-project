@@ -3,10 +3,11 @@ import torch
 import torch.nn.functional as F
 import torch.optim as optim
 import random
+from .replayExperience import ReplayExperience
 from ..utils.replay_buffer import ReplayBuffer
 
 class DQNAgent():
-    def __init__(self, input_shape, action_size, seed, device, buffer_size, batch_size, gamma, lr, tau, update_every, replay_after, model, loadModel = None, args = None):
+    def __init__(self, input_shape, action_size, seed, device, buffer_size, batch_size, gamma, lr, tau, update_every, replay_after, model, loadModel = None, args = None, env = None):
         """Initialize an Agent object.
         
         Params
@@ -36,7 +37,14 @@ class DQNAgent():
         self.DQN = model
         self.tau = tau
         self.args = args
+
+
         
+        self.replay = ReplayExperience(env)
+        self.env = env
+
+
+
         # Q-Network
         self.policy_net = self.DQN(input_shape, action_size).to(self.device)
         if self.args["useDDQN"]:
@@ -58,7 +66,12 @@ class DQNAgent():
     
     def step(self, state, action, reward, next_state, done):
         # Save experience in replay memory
-        self.memory.add(state, action, reward, next_state, done)
+        if self.args["useHumanExperience"]:
+            #print('learning from humanz')
+            state, action, reward, next_state, done = self.replay.getExperience(self.env)
+            self.memory.add(state, action, reward, next_state, done)
+        else:
+            self.memory.add(state, action, reward, next_state, done)
         
         # Learn every UPDATE_EVERY time steps.
         self.t_step = (self.t_step + 1) % self.update_every

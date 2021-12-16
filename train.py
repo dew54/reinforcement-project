@@ -25,6 +25,7 @@ class Train:
         
         state = 'GreenHillZone.Act1'
         self.args = args
+        #self.env = retro.make(game='SonicTheHedgehog-Genesis', state=retro.State.NONE, use_restricted_actions=retro.Actions.ALL)
 
         self.env = retro.make(game='SonicTheHedgehog-Genesis', state = state, scenario='contest')
         self.env.seed(0)
@@ -72,7 +73,7 @@ class Train:
             pass
 
         self.agent = None
-        self.agent = DQNAgent(INPUT_SHAPE, ACTION_SIZE, SEED, device, BUFFER_SIZE, BATCH_SIZE, GAMMA, LR, TAU, UPDATE_EVERY, UPDATE_TARGET, DQNCnn, '', args)
+        self.agent = DQNAgent(INPUT_SHAPE, ACTION_SIZE, SEED, device, BUFFER_SIZE, BATCH_SIZE, GAMMA, LR, TAU, UPDATE_EVERY, UPDATE_TARGET, DQNCnn, '', args, self.env)
 
         
         self.start_epoch = 0

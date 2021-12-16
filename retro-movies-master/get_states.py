@@ -1,6 +1,6 @@
 import retro
 
-movie_path = 'human/SonicAndKnuckles3-Genesis/contest/SonicAndKnuckles3-Genesis-AngelIslandZone.Act1-0000.bk2'
+movie_path = 'human/SonicTheHedgehog-Genesis/contest/SonicTheHedgehog-Genesis-GreenHillZone.Act1-0000.bk2'
 movie = retro.Movie(movie_path)
 movie.step()
 
