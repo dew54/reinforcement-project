@@ -17,6 +17,7 @@ sys.path.append('../../')
 from algos.agents.dqn_agent import DQNAgent
 from algos.models.dqn_cnn import DQNCnn
 from algos.preprocessing.stack_frame import preprocess_frame, stack_frame
+from algos.agents.replayExperience import ReplayExperience
 
 
 class Train: 
@@ -53,6 +54,8 @@ class Train:
                     7: [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
                 }
 
+        self.replay = ReplayExperience(self.env)
+
         INPUT_SHAPE = (4, 84, 84)
         ACTION_SIZE = len(self.possible_actions)
         SEED = 0
@@ -61,7 +64,7 @@ class Train:
         BATCH_SIZE = 32        # Update batch size
         LR = 0.0001            # learning rate 
         TAU = 1e-3             # for soft update of target parameters
-        UPDATE_EVERY = 100     # how often to update the network
+        UPDATE_EVERY = args["update_every"]     # how often to update the network
         UPDATE_TARGET = 10000  # After which thershold replay to be started 
         EPS_START = 0.99       # starting value of epsilon
         EPS_END = 0.01         # Ending value of epsilon
@@ -134,6 +137,8 @@ class Train:
                     reward -= 1
                 
                 next_state = self.stack_frames(state, next_state, False)
+                if self.args["useHumanExperience"]:
+                    state, action, reward, next_state, done = self.replay.getExperience(self.env)
                 self.agent.step(state, action, reward, next_state, done)
                 state = next_state
                 if done:

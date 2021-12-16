@@ -40,7 +40,7 @@ class DQNAgent():
 
 
         
-        self.replay = ReplayExperience(env)
+        #self.replay = ReplayExperience(env)
         self.env = env
 
 
@@ -49,6 +49,7 @@ class DQNAgent():
         self.policy_net = self.DQN(input_shape, action_size).to(self.device)
         if self.args["useDDQN"]:
             self.target_net = self.DQN(input_shape, action_size).to(self.device)
+
         self.optimizer = optim.Adam(self.policy_net.parameters(), lr=self.lr)
         
         # Replay memory
@@ -64,14 +65,19 @@ class DQNAgent():
             self.policy_net = torch.load('trainedCNN.model')
             self.policy_net.eval()
     
+
+
+
+
+
     def step(self, state, action, reward, next_state, done):
         # Save experience in replay memory
-        if self.args["useHumanExperience"]:
+        #if self.args["useHumanExperience"]:
             #print('learning from humanz')
-            state, action, reward, next_state, done = self.replay.getExperience(self.env)
-            self.memory.add(state, action, reward, next_state, done)
-        else:
-            self.memory.add(state, action, reward, next_state, done)
+        #    state, action, reward, next_state, done = self.replay.getExperience(self.env)
+        #    self.memory.add(state, action, reward, next_state, done)
+        #else:
+        self.memory.add(state, action, reward, next_state, done)
         
         # Learn every UPDATE_EVERY time steps.
         self.t_step = (self.t_step + 1) % self.update_every
@@ -110,12 +116,12 @@ class DQNAgent():
         current_Q = self.policy_net(states)
         current_Q = current_Q.gather(1, actions.unsqueeze(1)).squeeze(1)
 
-        next_Q = self.policy_net(next_states)
+        next_Q = self.policy_net(next_states).detach().max(1)[0]
 
-        max_next_Q = torch.max(next_Q, 1)[0]
+        #max_next_Q = torch.max(next_Q, 1)[0]
         
         # Compute Q targets for current states 
-        expected_Q  = rewards + (self.gamma * max_next_Q * (1 - dones))
+        expected_Q  = rewards + (self.gamma * next_Q * (1 - dones))
         
         # Compute loss
         loss = F.mse_loss(current_Q, expected_Q.detach())
@@ -127,6 +133,7 @@ class DQNAgent():
 
     def learnDouble(self, experiences):
         states, actions, rewards, next_states, dones = experiences
+        print(states)
 
         # Get expected Q values from policy model
         Q_expected_current = self.policy_net(states)

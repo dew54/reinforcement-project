@@ -3,11 +3,12 @@ import train
 def main():
 
     useNEAT = False
-    useDDQN = False
+    useDDQN = True
     useHumanExperience = True
-    level = 'SonicTheHedgehog-Genesis'
-    number_of_episodes = 500
+    level = 'GreenHillZone.Act1'
+    number_of_episodes = 200
     epsilon = 0.1
+    update_every = 100
 
 
     args = {
@@ -16,7 +17,8 @@ def main():
         "useHumanExperience": useHumanExperience,
         "level": level,
         "#episodes" : number_of_episodes,
-        "epsilon"  : epsilon
+        "epsilon"  : epsilon,
+        "update_every" : update_every
     }
 
     

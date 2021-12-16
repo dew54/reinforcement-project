@@ -14,12 +14,11 @@ while movie.step():
     for i in range(len(env.buttons)):
         keys.append(movie.get_key(i, 0))
     _obs, _rew, _done, _info = env.step(keys)
-    env.render()
+    #env.render()
     saved_state = env.em.get_state()
+    print(_obs)
 
 print('stepping environment started at final state of movie')
 env.initial_state = saved_state
 env.reset()
-while True:
-    env.render()
-    env.step(env.action_space.sample())
+
