@@ -4,7 +4,7 @@ from ..preprocessing.stack_frame import preprocess_frame, stack_frame
 class ReplayExperience:
     def __init__(self, env):
         
-        movie_path = 'human/SonicTheHedgehog-Genesis/contest/SonicTheHedgehog-Genesis-GreenHillZone.Act1-0000.bk2'
+        movie_path = './human/SonicTheHedgehog-Genesis/contest/SonicTheHedgehog-Genesis-GreenHillZone.Act1-0000.bk2'
         self.movie = retro.Movie(movie_path)
         self.movie.step()
 
