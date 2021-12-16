@@ -159,9 +159,9 @@ class Train:
         plt.ylabel('Score')
         plt.xlabel('Episode #')
         if self.args["useDDQN"]:
-            plt.savefig('scores_on_episodes_DDQN')
+            plt.savefig('images/scores_on_episodes_DDQN')
         else:
-            plt.savefig('scores_on_episodes_dqn')
+            plt.savefig('images/scores_on_episodes_dqn')
         print("Trained!")   
 
         return self.scores

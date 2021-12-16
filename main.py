@@ -8,10 +8,10 @@ def main():
     movie = retro.Movie(movie_path)
 
     useNEAT = False
-    useDDQN = True
-    useHumanExperience = True
+    useDDQN = False
+    useHumanExperience = False
     level = 'GreenHillZone.Act1'
-    number_of_episodes = 20
+    number_of_episodes = 3
     epsilon = 0.1
     update_every = 100
 
