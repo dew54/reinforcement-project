@@ -7,7 +7,7 @@ from .replayExperience import ReplayExperience
 from ..utils.replay_buffer import ReplayBuffer
 
 class DQNAgent():
-    def __init__(self, input_shape, action_size, seed, device, buffer_size, batch_size, gamma, lr, tau, update_every, replay_after, model, loadModel = None, args = None, env = None):
+    def __init__(self, input_shape, action_size, seed, device, buffer_size, batch_size, gamma, lr, tau, update_every, replay_after, model, loadModel = None, args = None, env = None, movie = None):
         """Initialize an Agent object.
         
         Params
@@ -40,10 +40,8 @@ class DQNAgent():
 
 
         
-        #self.replay = ReplayExperience(env)
-        self.env = env
 
-
+        
 
         # Q-Network
         self.policy_net = self.DQN(input_shape, action_size).to(self.device)
@@ -54,6 +52,10 @@ class DQNAgent():
         
         # Replay memory
         self.memory = ReplayBuffer(self.buffer_size, self.batch_size, self.seed, self.device)
+
+        if args["useHumanExperience"]:
+            self.replay = ReplayExperience(env, movie, self.memory)
+            self.replay_after = 50
         
         self.t_step = 0
         
@@ -92,6 +94,9 @@ class DQNAgent():
                 else:
                 #    print("Vanilla DQN")
                     self.learn(experiences)
+
+
+
 
     def act(self, state, eps=0.):
         """Returns actions for given state as per current policy."""
@@ -133,7 +138,7 @@ class DQNAgent():
 
     def learnDouble(self, experiences):
         states, actions, rewards, next_states, dones = experiences
-        print(states)
+        
 
         # Get expected Q values from policy model
         Q_expected_current = self.policy_net(states)

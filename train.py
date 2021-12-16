@@ -21,14 +21,15 @@ from algos.agents.replayExperience import ReplayExperience
 
 
 class Train: 
-    def __init__(self, args ):
+    def __init__(self, args, movie = None ):
         
         
         state = 'GreenHillZone.Act1'
         self.args = args
         #self.env = retro.make(game='SonicTheHedgehog-Genesis', state=retro.State.NONE, use_restricted_actions=retro.Actions.ALL)
 
-        self.env = retro.make(game='SonicTheHedgehog-Genesis', state = state, scenario='contest')
+        self.env = retro.make(game='SonicTheHedgehog-Genesis', state = state, scenario='contest', use_restricted_actions=retro.Actions.ALL)
+        print(self.env.em)
         self.env.seed(0)
         torch.cuda.is_available()
 
@@ -54,7 +55,8 @@ class Train:
                     7: [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
                 }
 
-        self.replay = ReplayExperience(self.env)
+     #   if movie != None:
+     #       self.replay = ReplayExperience(self.env, movie, )
 
         INPUT_SHAPE = (4, 84, 84)
         ACTION_SIZE = len(self.possible_actions)
@@ -76,7 +78,7 @@ class Train:
             pass
 
         self.agent = None
-        self.agent = DQNAgent(INPUT_SHAPE, ACTION_SIZE, SEED, device, BUFFER_SIZE, BATCH_SIZE, GAMMA, LR, TAU, UPDATE_EVERY, UPDATE_TARGET, DQNCnn, '', args, self.env)
+        self.agent = DQNAgent(INPUT_SHAPE, ACTION_SIZE, SEED, device, BUFFER_SIZE, BATCH_SIZE, GAMMA, LR, TAU, UPDATE_EVERY, UPDATE_TARGET, DQNCnn, '', args, self.env, movie)
 
         
         self.start_epoch = 0
@@ -119,6 +121,7 @@ class Train:
             steps_stuck = 0
             timestamp = 0
 
+
             while timestamp < 1000:
                 action = self.agent.act(state, eps)
                 next_state, reward, done, info = self.env.step(self.possible_actions[action])
@@ -137,8 +140,8 @@ class Train:
                     reward -= 1
                 
                 next_state = self.stack_frames(state, next_state, False)
-                if self.args["useHumanExperience"]:
-                    state, action, reward, next_state, done = self.replay.getExperience(self.env)
+                #if self.args["useHumanExperience"]:
+                #    state, action, reward, next_state, done = self.replay.getExperience(self.env)
                 self.agent.step(state, action, reward, next_state, done)
                 state = next_state
                 if done:
