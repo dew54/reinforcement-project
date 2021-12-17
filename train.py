@@ -158,10 +158,24 @@ class Train:
         plt.plot(np.arange(len(self.scores)), self.scores)
         plt.ylabel('Score')
         plt.xlabel('Episode #')
+
+        titles = {
+        "useNEAT": "_NEAT",
+        "useDDQN": "_DDQN_",
+        "useHumanExperience": "_EXP"
+        
+    }
+
+        title = 'scores_on_episodes'
+
+        if self.args["useNEAT"]:
+            title += titles["useNEAT"]
         if self.args["useDDQN"]:
-            plt.savefig('images/scores_on_episodes_DDQN')
-        else:
-            plt.savefig('images/scores_on_episodes_dqn')
+            title += titles["useDDQN"]
+        if self.args["useHumanExperience"]:
+            title += titles["useHumanExperience"]
+        
+        plt.savefig('images/'+ title)
         print("Trained!")   
 
         return self.scores

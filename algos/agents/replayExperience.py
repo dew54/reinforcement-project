@@ -1,5 +1,7 @@
 
 from ..preprocessing.stack_frame import preprocess_frame, stack_frame
+import csv
+
 #import dqn_agent
 
 
@@ -24,6 +26,7 @@ class ReplayExperience:
 
     def AddMemory(self):
         state = self.stack_frames(None, self.env.reset(), True)
+        
         while self.movie.step():
             keys = []
             
@@ -34,7 +37,7 @@ class ReplayExperience:
                     #next_state, reward, done, info = self.env.step(action)
                     
                 
-            next_state, reward, done, info = self.env.step(keys)
+            next_state, reward, done, info = self.env.step(keys)        #gioca
             action = self.translateAction(keys)
             print(action)
             next_state = self.stack_frames(state, next_state, False)
@@ -42,18 +45,6 @@ class ReplayExperience:
             state = next_state
             #self.env.render()
 
-
-
-
-
-
-
-    #            #env.render()
-    #            saved_state = self.env.em.get_state()
-    #    self.env.close()
- 
-     #   self.memory.add(state, action, reward, next_state, done)
-      #  return state, keys, _rew, next_state, _done, _info
 
     def stack_frames(self, frames, state, is_new=False):
         frame = preprocess_frame(state, (1, -1, -1, 1), 84)
@@ -75,8 +66,6 @@ class ReplayExperience:
                     '[0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0]': 3,
                     # Right, Down
                     '[0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0]': 4,
-                    #added
-                    '[0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0]': 4,
                     # Down
                     '[0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0]': 5,
                     # Down, B
@@ -98,4 +87,7 @@ class ReplayExperience:
             elif action[a] == False:
                 self.action[a] = 0
         return str(self.action)
+
+
+    #def writeCSV(self, )
 
