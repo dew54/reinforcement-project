@@ -174,8 +174,13 @@ class Train:
             title += titles["useDDQN"]
         if self.args["useHumanExperience"]:
             title += titles["useHumanExperience"]
+        if self.args["colab"]:
+            folder = '/content/reinforcement-project/images/'
+        else:
+            folder = 'images/'
+          
         
-        plt.savefig('images/'+ title)
+        plt.savefig(folder + title)
         print("Trained!")   
 
         return self.scores

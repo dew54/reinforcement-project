@@ -4,12 +4,12 @@ import retro
 
 def main():
 
-    movie_path = 'retro-movies-master/human/SonicTheHedgehog-Genesis/contest/SonicTheHedgehog-Genesis-GreenHillZone.Act1-0000.bk2'
-    movie = retro.Movie(movie_path)
+    
 
     useNEAT = False
     useDDQN = True
-    useHumanExperience = True
+    useHumanExperience = False
+    colab = True
     level = 'GreenHillZone.Act1'
     number_of_episodes = 2
     epsilon = 0.1
@@ -24,9 +24,14 @@ def main():
         "level": level,
         "#episodes" : number_of_episodes,
         "epsilon"  : epsilon,
-        "update_every" : update_every
+        "update_every" : update_every,
+        "colab" : colab
     }
 
+    movie_path = 'retro-movies-master/human/SonicTheHedgehog-Genesis/contest/SonicTheHedgehog-Genesis-GreenHillZone.Act1-0000.bk2'
+    if colab:
+      movie_path = '/content/drive/MyDrive/Colab Notebooks/SonicTheHedgehog-Genesis-GreenHillZone.Act1-0000.bk2'
+    movie = retro.Movie(movie_path)
     #rom = import 'C:\Users\dew54\OneDrive\Documenti\UniTs\RL\reinforcement-project\rom'
     
     
