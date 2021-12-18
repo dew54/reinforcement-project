@@ -7,6 +7,7 @@ from collections import deque
 import matplotlib.pyplot as plt
 from IPython.display import clear_output
 import math
+import csv
 
 
 #%matplotlib inline
@@ -151,7 +152,10 @@ class Train:
 
 
             print('\rEpisode {}\tAverage Score: {:.2f}\tEpsilon: {:.2f}'.format(i_episode, np.mean(self.scores_window), eps))
+            
+            
 
+        self.agent.saveNetwork()
         clear_output(True)
         fig = plt.figure()
         ax = fig.add_subplot(111)
@@ -167,13 +171,17 @@ class Train:
     }
 
         title = 'scores_on_episodes'
+        titleDat = 'scores'
 
         if self.args["useNEAT"]:
             title += titles["useNEAT"]
+            titleDat += titles["useNEAT"]
         if self.args["useDDQN"]:
             title += titles["useDDQN"]
+            titleDat += titles["useDDQN"]
         if self.args["useHumanExperience"]:
             title += titles["useHumanExperience"]
+            titleDat += titles["useHumanExperience"]
         if self.args["colab"]:
             folder = '/content/reinforcement-project/images/'
         else:
@@ -181,7 +189,18 @@ class Train:
           
         
         plt.savefig(folder + title)
-        print("Trained!")   
+        print("Trained!") 
+
+        self.env.close()  
+
+        if self.args["colab"]:
+            folder = '/content/reinforcement-project/scores/'
+        else:
+            folder = 'scores/'
+
+        with open(folder + titleDat + '.csv', 'w', newline='') as csvfile:
+                spamwriter = csv.writer(csvfile, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                spamwriter.writerow(self.scores)
 
         return self.scores
         

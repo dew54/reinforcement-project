@@ -58,13 +58,33 @@ class DQNAgent():
             self.replay_after = 50
         
         self.t_step = 0
+
+        self.titles = {
+        "useNEAT": "_NEAT",
+        "useDDQN": "_DDQN_",
+        "useHumanExperience": "_EXP"
+        
+        }
+
+        titleModel = 'trainedCNN'
+        titleParams = 'trainedPT'
+
+        if self.args["useNEAT"]:
+            titleModel += self.titles["useNEAT"]
+            titleParams += self.titles["useNEAT"]
+        if self.args["useDDQN"]:
+            titleModel += self.titles["useDDQN"]
+            titleParams += self.titles["useDDQN"]
+        if self.args["useHumanExperience"]:
+            titleModel += self.titles["useHumanExperience"]
+            titleParams += self.titles["useHumanExperience"]
         
         if loadModel == 'load_pt':
-            self.state_dict = torch.load('traindParameters.pt')
+            self.state_dict = torch.load(titleParams)
             self.policy_net.load_state_dict(self.state_dict)
             self.policy_net.eval()
         elif loadModel == 'load_model':
-            self.policy_net = torch.load('trainedCNN.model')
+            self.policy_net = torch.load(titleModel)
             self.policy_net.eval()
     
 
@@ -166,5 +186,34 @@ class DQNAgent():
         for target_param, policy_param in zip(target_model.parameters(), policy_model.parameters()):
             target_param.data.copy_(tau*policy_param.data + (1.0-tau)*target_param.data)
 
+
+
+
     def saveNetwork(self):
-        torch.save(self.target_net, 'trainedCNN.model')
+        titles = {
+        "useNEAT": "_NEAT",
+        "useDDQN": "_DDQN_",
+        "useHumanExperience": "_EXP"
+        
+        }
+
+        titleModel = 'trainedCNN'
+        titleParams = 'trainedPT'
+
+        if self.args["colab"]:
+            folder = '/content/reinforcement-project/trainedModels/'
+        else:
+            folder = 'trainedModels/'
+
+        if self.args["useNEAT"]:
+            titleModel += titles["useNEAT"]
+            titleParams += titles["useNEAT"]
+        if self.args["useDDQN"]:
+            titleModel += titles["useDDQN"]
+            titleParams += titles["useDDQN"]
+        if self.args["useHumanExperience"]:
+            titleModel += titles["useHumanExperience"]
+            titleParams += titles["useHumanExperience"]
+       
+        torch.save(self.policy_net, folder + titleModel)
+        torch.save(self.policy_net.state_dict(), folder + titleParams)
