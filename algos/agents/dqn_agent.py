@@ -192,7 +192,7 @@ class DQNAgent():
     def saveNetwork(self):
         titles = {
         "useNEAT": "_NEAT",
-        "useDDQN": "_DDQN_",
+        "useDDQN": "_DDQN",
         "useHumanExperience": "_EXP"
         
         }

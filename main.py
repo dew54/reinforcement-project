@@ -11,7 +11,7 @@ def main():
     useHumanExperience = False
     colab = False
     level = 'GreenHillZone.Act1'
-    number_of_episodes = 2
+    number_of_episodes = 10
     epsilon = 0.1
     update_every = 100
 
@@ -30,7 +30,7 @@ def main():
     print('Phase 1')
     training = train.Train(args)
     print(training.train(number_of_episodes))
-
+""" 
     useNEAT = False
     useDDQN = True
     useHumanExperience = False
@@ -46,7 +46,7 @@ def main():
     movie = retro.Movie(movie_path)
     args = setArgs(useNEAT, useDDQN, useHumanExperience, level, number_of_episodes, epsilon, update_every, colab)
     training = train.Train(args, movie)
-    training.train(number_of_episodes)
+    training.train(number_of_episodes) """
 
 
 def setArgs(useNEAT, useDDQN, useHumanExperience,level, number_of_episodes, epsilon, update_every, colab):

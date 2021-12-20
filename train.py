@@ -30,7 +30,6 @@ class Train:
         #self.env = retro.make(game='SonicTheHedgehog-Genesis', state=retro.State.NONE, use_restricted_actions=retro.Actions.ALL)
 
         self.env = retro.make(game='SonicTheHedgehog-Genesis', state = state, scenario='contest', use_restricted_actions=retro.Actions.ALL)
-        print(self.env.em)
         self.env.seed(0)
         torch.cuda.is_available()
 
