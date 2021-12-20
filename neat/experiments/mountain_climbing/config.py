@@ -1,9 +1,10 @@
 import torch
 import gym
+import numpy
 from neat.phenotype.feed_forward import FeedForwardNet
 
 
-class Sonic:
+class MountainClimbConfig:
     DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     VERBOSE = True
 
@@ -32,7 +33,7 @@ class Sonic:
 
     def fitness_fn(self, genome):
         # OpenAI Gym
-        env = gym.make('SonicTheHedgehog-Genesis')
+        env = gym.make('MountainCarContinuous-v0')
         done = False
         observation = env.reset()
 
@@ -40,8 +41,11 @@ class Sonic:
         phenotype = FeedForwardNet(genome, self)
 
         while not done:
-            input = torch.Tensor([observation]).to(self.DEVICE)
-
+            input = torch.Tensor(numpy.array([observation])).to(self.DEVICE)
+            a=numpy.array([observation])
+            print(a.shape)
+            print(a)
+            env.render()
             pred = [round(float(phenotype(input)))]
             observation, reward, done, info = env.step(pred)
 
