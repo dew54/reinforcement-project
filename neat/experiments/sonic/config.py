@@ -43,8 +43,12 @@ class Sonic:
 
         while not done:
             input = torch.Tensor(numpy.array([observation])).to(self.DEVICE)
-
-            pred = [round(float(phenotype(input)))]
+            env.render()
+            a = numpy.array([observation])
+            print(a.shape)
+            print(a[0, 1, 1, 1])
+            # input[]
+            pred = round(float(phenotype(input[:, 0:8:223, 0:8:319, :])))
             observation, reward, done, info = env.step(pred)
 
             fitness += reward
