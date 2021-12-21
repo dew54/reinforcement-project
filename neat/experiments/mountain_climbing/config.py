@@ -3,7 +3,7 @@ import gym
 from neat.phenotype.feed_forward import FeedForwardNet
 
 
-class Sonic:
+class MountainClimbConfig:
     DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     VERBOSE = True
 
