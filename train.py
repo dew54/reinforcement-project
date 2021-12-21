@@ -201,5 +201,5 @@ class Train:
                 spamwriter = csv.writer(csvfile, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
                 spamwriter.writerow(self.scores)
 
-        return self.scores
+        return np.mean(self.scores)
         

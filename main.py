@@ -30,6 +30,30 @@ def main():
     print('Phase 1')
     training = train.Train(args)
     print(training.train(number_of_episodes))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 """ 
     useNEAT = False
     useDDQN = True
