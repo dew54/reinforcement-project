@@ -1,3 +1,4 @@
+import numpy
 import torch
 import gym
 from neat.phenotype.feed_forward import FeedForwardNet
@@ -47,7 +48,7 @@ class PoleBalanceConfig:
         phenotype = FeedForwardNet(genome, self)
 
         while not done:
-            input = torch.Tensor([observation]).to(self.DEVICE)
+            input = torch.Tensor(numpy.array([observation])).to(self.DEVICE)
 
             pred = round(float(phenotype(input)))
             observation, reward, done, info = env.step(pred)
