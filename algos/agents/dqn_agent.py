@@ -190,6 +190,7 @@ class DQNAgent():
 
 
     def saveNetwork(self):
+        print(self.policy_net)
         titles = {
         "useNEAT": "_NEAT",
         "useDDQN": "_DDQN",
