@@ -10,7 +10,7 @@ git clone https://github.com/dew54/reinforcement-project.git
 
 
 Note: 
-Retro-gym is not compatible with python 3.9 or higher. Install python 3.7, then for installing packages for a specific version of python:
+Retro-gym is not compatible with python 3.9 or higher. Install python 3.7, then to install packages for a specific version of python:
 py -3.7 -m pip install gym-retro
 
 To import a rom:
