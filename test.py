@@ -20,9 +20,9 @@ from algos.preprocessing.stack_frame import preprocess_frame, stack_frame
 
 env = retro.make(game='SonicTheHedgehog-Genesis', state='GreenHillZone.Act1', scenario='contest')
 env.seed(0)
-torch.cuda.is_available()
+# torch.cuda.is_available()
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+# device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print("Device: ", device)
 
 print("The size of frame is: ", env.observation_space.shape)
