@@ -23,6 +23,7 @@ env.seed(0)
 torch.cuda.is_available()
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print("Device: ", device)
 
 print("The size of frame is: ", env.observation_space.shape)
@@ -72,6 +73,9 @@ EPS_END = 0.01         # Ending value of epsilon
 EPS_DECAY = 100         # Rate by which epsilon to be decayed
 
 agent = DQNAgent(INPUT_SHAPE, ACTION_SIZE, SEED, device, BUFFER_SIZE, BATCH_SIZE, GAMMA, LR, TAU, UPDATE_EVERY, UPDATE_TARGET, DQNCnn)
+
+# agent = DDQNCnn(INPUT_SHAPE, ACTION_SIZE, SEED, device, BUFFER_SIZE, BATCH_SIZE, GAMMA, LR, TAU, UPDATE_EVERY, UPDATE_TARGET, DQNCnn)
+
 
 
 
@@ -135,6 +139,15 @@ def train(n_episodes=500):
 
 
 scores = train(1000)
+
+clear_output(True)
+fig = plt.figure()
+ax = fig.add_subplot(111)
+plt.plot(np.arange(len(scores)), scores)
+plt.ylabel('Score')
+plt.xlabel('Episode #')
+plt.show()
+# scores = train(1000)
 
 print("Trained!")
 
